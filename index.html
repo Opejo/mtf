@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTfy Africa - Make It Finally</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#FFD700;color:#111;padding-bottom:90px;padding-top:100px}
+.topbar{position:fixed;top:0;left:0;right:0;background:#fff;z-index:30;border-bottom:3px solid #FFD700;padding:6px 8px}
+.topRow{display:flex;align-items:center;gap:8px}
+.brand{flex:1;text-align:center;font-weight:900;font-size:20px}.brand small{display:block;font-size:9px;color:#666;font-weight:normal}
+.topIcons{display:flex;justify-content:space-around;background:#87CEEB;border-radius:10px;margin-top:6px;padding:6px 2px}
+.topIcons a{color:#111;text-decoration:none;font-size:10px;text-align:center;flex:1;padding:4px;font-weight:bold;border-radius:8px}
+.pageBox{background:#fff;margin:12px;padding:18px;border-radius:14px;border:2px solid #FFD700;text-align:center}
+.pageBox input,.pageBox select{width:100%;padding:11px;margin:6px 0;border-radius:10px;border:2px solid #FFD700;background:#FFF8DC}
+.btn{display:block;background:#FFD700;padding:14px;border-radius:30px;font-weight:bold;text-decoration:none;color:#111;border:2px solid #C9A227;margin:8px 0;text-align:center}
+.btnBlue{background:#87CEEB}
+.card{margin:10px;background:#fff;border-radius:14px;overflow:hidden;border:2px solid #FFD700}
+.video{height:180px;background:linear-gradient(135deg,#87CEEB,#FFD700,#fff);display:flex;align-items:center;justify-content:center;font-size:55px}
+.info{padding:12px;text-align:left}.caption{margin:6px 0;color:#333;font-size:13px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px;border-top:3px solid #FFD700;font-size:10px;text-align:center;z-index:30}.bottom a{color:#111;text-decoration:none;flex:1;font-weight:bold}
+details.menu{position:fixed;top:58px;left:10px;background:#fff;border:2px solid #FFD700;border-radius:14px;width:260px;z-index:40}
+details.menu summary{cursor:pointer;padding:10px;background:#FFD700;font-weight:900;border-radius:12px;list-style:none}
+details.menu a{display:block;padding:12px 16px;text-decoration:none;color:#111;border-bottom:1px solid #EEE;font-weight:bold;font-size:14px}
+.page{display:none}
+.page:target{display:block}
+#homePage{display:block}
+body:has(#mePage:target) #homePage,body:has(#fansPage:target) #homePage,body:has(#newsPage:target) #homePage,body:has(#marketPage:target) #homePage,body:has(#gamesPage:target) #homePage,body:has(#welcomeBox:target) #homePage{display:none}
+#welcomeBox{display:none}
+#welcomeBox:target{display:block}
+.chatBox{text-align:left;background:#FFF8DC;padding:10px;border-radius:12px;margin:8px 0;border:1px solid #FFD700}
+.newsLink{display:block;background:#87CEEB;padding:12px;margin:8px 0;border-radius:10px;color:#111;font-weight:bold;text-decoration:none;text-align:left}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<div class="topRow">
+<details class="menu"><summary>☰ MENU - TAP TO OPEN</summary>
+<a href="#homePage">🏠 Home</a>
+<a href="#mePage">👤 My Profile</a>
+<a href="#fansPage">❤️ My Fans</a>
+<a href="#newsPage">📰 News</a>
+<a href="#marketPage">🛒 Marketplace</a>
+<a href="#gamesPage">🎮 Games</a>
+<a href="#homePage">🚪 Logout / Home</a>
+</details>
+<div class="brand">MTfy 🌍<small>MTfy Africa - Make It Finally</small></div>
+<div style="font-size:22px"><a href="#fansPage" style="text-decoration:none">🔔</a></div>
+</div>
+<div class="topIcons">
+<a href="#mePage">👤<br>Me</a><a href="#fansPage">❤️<br>My Fans</a><a href="#newsPage">📰<br>News</a><a href="#marketPage">🛒<br>Market</a><a href="#gamesPage">🎮<br>Games</a>
+</div>
+</div>
+
+<div id="homePage">
+<div class="pageBox">
+<h2>Welcome to MTfy Africa 🌍</h2>
+<p style="font-size:12px;color:#666">Create FREE account - NO JS VERSION - Links Only</p>
+<input placeholder="Full Names - e.g. Opejo Benjamin">
+<input placeholder="Username - e.g. @opejo_africa">
+<div style="display:flex;gap:6px"><select style="width:38%"><option>+256 Uganda</option><option>+234 Nigeria</option><option>+254 Kenya</option><option>+27 S. Africa</option></select><input placeholder="Phone - e.g. 774617731"></div>
+<input placeholder="OTP - use 1234">
+<a class="btn" href="#welcomeBox">✅ CREATE ACCOUNT & LOGIN - TAP ME</a>
+<a class="btn btnBlue" href="#welcomeBox">⚡ ENTER WITHOUT LOGIN - TAP ME</a>
+<p style="font-size:12px;color:green">If you can tap this link, the app WORKS. No JavaScript needed.</p>
+</div>
+
+<div class="pageBox" id="welcomeBox">
+<h2>✅ YOU ARE IN! Welcome Back! 🌍</h2>
+<p><b>Opejo Benjamin</b> • @opejo • +256 774617731</p>
+<p style="color:green;font-weight:bold">Login WORKED! No JavaScript used!</p>
+<a class="btn" href="#homePage">← Back to Home</a>
+</div>
+
+<div class="card"><div class="video">🎥</div><div class="info"><b>@lagos_star</b> • Lagos, Nigeria<div class="caption">Afrobeats! 🇳🇬 #MTfyAfrica</div><p>❤️ 12400 &nbsp; ↗️ Share &nbsp; ➕ Follow</p></div></div>
+<div class="card"><div class="video">🎤</div><div class="info"><b>@nairobi_food</b> • Nairobi, Kenya<div class="caption">Nyama Choma! 🇰🇪</div><p>❤️ 25000 &nbsp; ↗️ Share &nbsp; ➕ Follow</p></div></div>
+<a class="btn" href="#mePage">👤 GO TO MY PROFILE →</a>
+<a class="btn" href="#gamesPage">🎮 GO TO GAMES →</a>
+</div>
+
+<div id="mePage" class="pageBox page"><h2>👤 My Profile</h2><p><b>Opejo Benjamin</b><br>@opejo<br>+256 774617731<br>🌍 MTfy Africa Member</p><a class="btn" href="#homePage">← Home</a></div>
+<div id="fansPage" class="pageBox page"><h2>❤️ My Fans</h2><div class="chatBox"><div><b>@lagos_star:</b> Big fan! 🔥</div><div><b>You:</b> Thank you! 🌍</div></div><p>Chat works via WhatsApp for now - Tap below:</p><a class="btn btnBlue" href="https://wa.me/256774617731?text=Hello%20MTfy%20Fan!" target="_blank">💬 Chat on WhatsApp</a><a class="btn" href="#homePage">← Home</a></div>
+<div id="newsPage" class="pageBox page"><h2>📰 Africa News - Real Links</h2><a class="newsLink" href="https://www.bbc.com/news/world/africa" target="_blank">🌍 BBC News Africa →</a><a class="newsLink" href="https://www.aljazeera.com/africa/" target="_blank">📺 Al Jazeera Africa →</a><a class="newsLink" href="https://www.africanews.com/" target="_blank">📰 Africanews →</a><a class="newsLink" href="https://punchng.com/" target="_blank">🇳🇬 Punch Nigeria →</a><a class="btn" href="#homePage">← Home</a></div>
+<div id="marketPage" class="pageBox page"><h2>🛒 Marketplace Africa</h2><div style="background:#FFF8DC;padding:12px;border-radius:10px;margin:8px 0;text-align:left">👕 <b>MTfy T-Shirt - 30,000</b><br>Soroti, Uganda</div><p>To sell: WhatsApp Opejo:</p><a class="btn btnBlue" href="https://wa.me/256774617731?text=I%20want%20to%20sell%20on%20MTfy" target="_blank">🛒 Sell via WhatsApp</a><a class="btn" href="#homePage">← Home</a></div>
+<div id="gamesPage" class="pageBox page"><h2>🎮 Games - Football!</h2><p>⚽ Penalty Game - Pick One:</p><a class="btn" href="#gamesPage">⬅️ LEFT - GOAL! ⚽</a><a class="btn" href="#gamesPage">⬆️ CENTER - SAVED! 🧤</a><a class="btn" href="#gamesPage">➡️ RIGHT - GOAL! ⚽</a><p style="font-weight:bold">You scored! Play again above!</p><a class="btn" href="#homePage">← Home</a></div>
+
+<div class="bottom">
+<a href="#homePage">🏠<br>Home</a>
+<a href="#newsPage">📰<br>News</a>
+<a href="#marketPage">🛒<br>Market</a>
+<a href="#gamesPage">🎮<br>Games</a>
+<a href="#fansPage">❤️<br>Fans</a>
+</div>
+
+</body>
+  </html>
