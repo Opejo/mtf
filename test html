@@ -1,0 +1,4 @@
+<h1>MTfy TEST</h1>
+<button onclick="alert('BUTTON WORKS!')">TAP ME</button>
+<p id="p">Like count: 0</p>
+<button onclick="document.getElementById('p').innerText='Like count: '+(parseInt(document.getElementById('p').innerText.split(': ')[1])+1)">❤️ LIKE</button>
