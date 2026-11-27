@@ -87,7 +87,7 @@ body{background:linear-gradient(135deg,#FFF7A8,#FFD700,#C9A227,#FFEC8B,#D4AF37);
 <input type="file" id="profilePicInput" accept="image/*">
 <img id="profilePreview" style="width:80px;height:80px;border-radius:50%;display:none;object-fit:cover;margin:6px auto;border:2px solid gold">
 <input id="otpInput" placeholder="OTP - use 1234">
-<button id="loginBtn">✅ CREATE ACCOUNT & LOGIN</button>
+<button id="loginBtn">✅ CREATE ACCOUNT & LOGIN</button><button onclick="document.getElementById('loginBox').style.display='none';document.getElementById('welcomeBox').style.display='block';document.getElementById('welcomeName').innerText=document.getElementById('fullName').value;document.getElementById('welcomeUser').innerText=document.getElementById('userName').value;document.getElementById('welcomePhone').innerText=document.getElementById('countryCode').value+' '+document.getElementById('phoneNum').value;alert('Welcome to MTfy Africa!')">⚡ ENTER APP NOW - Skip Login Problem</button>
 <p id="loginMsg" style="font-weight:bold;font-size:13px"></p>
 </div>
 <div class="pageBox" id="welcomeBox" style="display:none">
