@@ -286,7 +286,6 @@ function renderFeed(data){
 async function likePost(id,btn,count){ if(btn.classList.contains('liked')) return; btn.classList.add('liked'); document.getElementById('c-'+id).innerText=count+1; try{ if(!id.startsWith('demo')) await supabaseClient.from('posts').update({likes_count:count+1}).eq('id',id); }catch(e){} }
 async function uploadVideo(){
   const file=document.getElementById('videoFile').files[0]; const caption=document.getElementById('caption').value;
-  <!-- PART 2 - PASTE AFTER PART 1 -->
 Select a video first";return;}
   document.getElementById('upMsg').innerText="Uploading...";
   try{
