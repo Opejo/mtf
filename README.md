@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MTfy - Africa's Fun</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#000;color:#fff;font-family:system-ui}
+.top{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:12px 16px;background:rgba(0,0,0,.7);z-index:10}
+.logo{font-weight:900;font-size:22px}.logo span{color:#ff2d55}
+#feed{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory}
+.post{height:100vh;scroll-snap-align:start;position:relative;display:flex;align-items:flex-end;justify-content:center;background:#111}
+.post video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.info{position:relative;z-index:2;padding:20px 70px 30px 16px;width:100%;background:linear-gradient(transparent,rgba(0,0,0,.8))}
+.user{font-weight:800}.cap{margin:6px 0}
+.actions{position:absolute;right:12px;bottom:100px;z-index:3;display:flex;flex-direction:column;gap:16px;align-items:center}
+.likeBtn{background:#fff;border:0;width:52px;height:52px;border-radius:50%;font-size:24px;cursor:pointer}
+.likeBtn.liked{background:#ff2d55}
+.loginBox{padding:100px 20px;text-align:center}
+.loginBox input{width:100%;padding:14px;margin:8px 0;border-radius:10px;border:0;font-size:16px}
+.loginBox button{width:100%;padding:14px;background:#ff2d55;color:#fff;border:0;border-radius:10px;font-size:18px;font-weight:800}
+</style>
+</head>
+<body>
+<div class="top"><div class="logo">MTfy<span>•</span></div><div id="me">Login</div></div>
+
+<div id="login" class="loginBox">
+<h1>MTfy 🇺🇬🇳🇬🇰🇪</h1>
+<p>Africa's TikTok - REAL</p>
+<input id="name" placeholder="Full Name">
+<input id="user" placeholder="Username e.g. benjamin_ug">
+<input id="phone" placeholder="Phone e.g. 0770...">
+<button onclick="login()">Join MTfy →</button>
+<p id="msg"></p>
+</div>
+
+<div id="feed" style="display:none"></div>
+
+<script>
+const SUPABASE_URL = "https://nzmwvowbonbhhwtnxbpv.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56bXd2b3dwYm9oYmh3dG5xYnBvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU3NzQ5OTksImV4cCI6MjExMTM1MDk5OX0.ogOSrStaF_FlK9htWZ6N53tU3rF5sUsUoemQlwz_2Bs";
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = localStorage.getItem('mtfy_user') || '';
+
+function showFeedUI(){
+  document.getElementById('me').innerText = "@"+currentUser;
+  document.getElementById('login').style.display='none';
+  document.getElementById('feed').style.display='block';
+}
+
+async function login(){
+  const name=document.getElementById('name').value.trim();
+  const username=document.getElementById('user').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  if(!name||!username){document.getElementById('msg').innerText="Fill name + username";return;}
+  document.getElementById('msg').innerText="Joining...";
+
+  // 1. ALWAYS save locally first - app never dies
+  localStorage.setItem('mtfy_user',username);
+  localStorage.setItem('mtfy_name',name);
+  currentUser=username;
+
+  // 2. Try Supabase in background, but don't block user if it fails
+  try{
+    const {error}=await supabaseClient.from('profiles').insert([{full_name:name,username:username,phone:phone}]);
+    if(error){
+      console.log("Supabase profile error (still logged in locally):", error.message);
+      document.getElementById('msg').innerText="Saved offline - Supabase: "+error.message;
+    }
+  }catch(e){
+    console.log("Network failed, using offline mode:", e);
+    document.getElementById('msg').innerText="Offline mode - saved locally. Check Supabase RLS.";
+  }
+
+  showFeedUI();
+  loadFeed();
+}
+
+async function loadFeed(){
+  try{
+    const {data,error}=await supabaseClient.from('posts').select('*').order('created_at',{ascending:false});
+    if(error) throw error;
+    if(!data||data.length===0) throw new Error("No posts");
+    renderFeed(data);
+  }catch(e){
+    console.log("Feed fallback:", e.message);
+    // DEMO POSTS so app never looks dead
+    renderFeed([
+      {id:'demo1', username:'mtfy', caption:'Welcome to MTfy! 🇺🇬 Be first to post! #Kampala', video_url:'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', likes_count:12},
+      {id:'demo2', username:'benjamin_ug', caption:'MTfy is LIVE! Africa\'s TikTok 🔥', video_url:'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', likes_count:45}
+    ]);
+  }
+}
+
+function renderFeed(data){
+  const feed=document.getElementById('feed');
+  feed.innerHTML='';
+  data.forEach(p=>{
+    const div=document.createElement('div');
+    div.className='post';
+    div.innerHTML=`
+      <video src="${p.video_url||'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'}" loop muted autoplay playsinline></video>
+      <div class="info"><div class="user">@${p.username||'mtfy'}</div><div class="cap">${p.caption||''}</div></div>
+      <div class="actions">
+        <button class="likeBtn" onclick="likePost('${p.id}',this,${p.likes_count||0})">❤️</button>
+        <span id="c-${p.id}">${p.likes_count||0}</span>
+      </div>`;
+    feed.appendChild(div);
+  });
+}
+
+async function likePost(postId,btn,currentCount){
+  if(btn.classList.contains('liked')) return;
+  btn.classList.add('liked');
+  document.getElementById('c-'+postId).innerText=currentCount+1;
+  // Try to save like, but don't crash if it fails (demo posts have no real id)
+  try{
+    if(postId.startsWith('demo')) return;
+    await supabaseClient.from('posts').update({likes_count:currentCount+1}).eq('id',postId);
+  }catch(e){ console.log("Like not saved:", e); }
+}
+
+if(currentUser){
+  showFeedUI();
+  loadFeed();
+}
+</script>
+</body>
+</html>
